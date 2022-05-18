@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 import { useDictionary } from '../../../slice/translates/selectors';
 import { ListItem } from './List/ListItem';
@@ -11,13 +11,13 @@ export const HistoryScene = () => {
     return el !== null && typeof el !== 'undefined';
   });
 
-  console.log('FILTERED HISTORY', filterEmpty);
-
   return (
-    <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+    <View style={{ flex: 1, backgroundColor: 'transparent', padding: 20 }}>
       <FlatList
         data={filterEmpty}
-        renderItem={({ item }) => <ListItem {...item} />}
+        renderItem={({ item, index }) => (
+          <ListItem index={index + 1} item={item} />
+        )}
       />
     </View>
   );

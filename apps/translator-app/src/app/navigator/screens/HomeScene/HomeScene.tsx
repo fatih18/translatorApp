@@ -1,16 +1,18 @@
 import React, { useState, useRef } from 'react';
 
-import { View, ScrollView, Button } from 'react-native';
+import { View, ScrollView, Button, Text } from 'react-native';
 import { TextInput } from '../../../components/Input/TextInput';
 import { ResultView } from './ResultView/ResultView';
 import { Header } from './Header/Header';
 import { useMutation, QueryClient } from 'react-query';
-import axiosInstance from '../../../utils/axios';
+
 import { useDispatch } from 'react-redux';
 import { useAppSlice } from '../../../slice/translates';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { NavigatorParamList } from '../../AppNavigator';
-const queryClient = new QueryClient();
+import { LanguageSwitch } from './LanguageSwitch/LanguageSwitch';
+import { TR } from '../../../components/icons/TR';
+import { EN } from '../../../components/icons/EN';
 
 interface TranslationMode {
   mode: string;
@@ -24,7 +26,8 @@ export const HomeScene = (props: TranslationMode) => {
   const [inputText, setInputText] = useState('');
   const [resultText, setResultText] = useState();
   //
-  const [changeMode, setChangeMode] = useState(mode);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp<NavigatorParamList>>();
@@ -39,8 +42,8 @@ export const HomeScene = (props: TranslationMode) => {
         method: 'POST',
         body: JSON.stringify({
           q: inputText,
-          source: 'tr',
-          target: 'en',
+          source: isEnabled ? 'tr' : 'en',
+          target: isEnabled ? 'en' : 'tr',
           format: 'text',
         }),
         headers: { 'Content-Type': 'application/json' },
@@ -67,15 +70,10 @@ export const HomeScene = (props: TranslationMode) => {
     }
   );
 
-  // would be tr-eng eng-tr vice versa
-  const handleChangeTranslationMode = () => {};
-
   const onSubmitText = () => {
     mutation.mutate();
     mutation.reset();
   };
-
-  console.log('Input Text', inputText);
 
   return (
     <ScrollView>
@@ -91,15 +89,23 @@ export const HomeScene = (props: TranslationMode) => {
           }}
           title="Translator App"
         />
+        <View
+          style={{
+            marginHorizontal: 20,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}
+        >
+          <View>
+            <LanguageSwitch mode={isEnabled} toggleSwitch={toggleSwitch} />
+          </View>
+          <View>{isEnabled ? <TR /> : <EN />}</View>
+        </View>
 
-        <TextInput onChangeInput={setInputText} placeholder="Enter text..." />
+        <TextInput onChangeText={setInputText} placeholder="Enter text..." />
 
         <View>
-          <Button
-            color={'red'}
-            onPress={() => onSubmitText()}
-            title="translate "
-          ></Button>
+          <Button onPress={() => onSubmitText()} title="translate "></Button>
         </View>
 
         <View style={{ padding: 10 }}>
