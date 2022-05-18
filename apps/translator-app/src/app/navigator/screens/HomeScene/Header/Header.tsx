@@ -19,8 +19,8 @@ export const Header = (props: HeaderViewProps) => {
         padding: 10,
       }}
     >
-      <Text style={{ fontSize: 18, fontWeight: '600' }}> {title}</Text>
-      <Button onPress={onChange} title="Change "></Button>
+      <Text style={{ fontSize: 22, fontWeight: '800' }}> {title}</Text>
+      <Button onPress={onChange} title="Translation History "></Button>
     </View>
   );
 };
