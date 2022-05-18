@@ -2,7 +2,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { HomeScene, HistoryScene } from './screens';
-import { Text } from 'react-native';
 
 export type NavigatorParamList<T = unknown> = {
   homeScene: undefined;
@@ -19,7 +18,11 @@ const AppStack = () => {
         component={HomeScene}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="historyScene" component={HistoryScene} />
+      <Stack.Screen
+        options={{ title: 'Translation History' }}
+        name="historyScene"
+        component={HistoryScene}
+      />
     </Stack.Navigator>
   );
 };
