@@ -70,9 +70,6 @@ export async function remove(key: string): Promise<void> {
   } catch {}
 }
 
-/**
- * Burn it all to the ground.
- */
 export async function clear(): Promise<void> {
   try {
     await AsyncStorage.clear();

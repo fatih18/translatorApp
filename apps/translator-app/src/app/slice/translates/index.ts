@@ -1,7 +1,6 @@
 import { AppState } from './types';
 import { createSlice } from '../../utils/@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Translation } from './types';
 
 export const initialState: AppState = {
   dictionary: [],
