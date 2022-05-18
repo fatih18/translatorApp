@@ -7,7 +7,7 @@ describe('TranslatorApp', () => {
 
   it('should display welcome message', async () => {
     await expect(element(by.id('heading'))).toHaveText(
-      'Welcome TranslatorApp 👋'
+      'Welcome TranslatorApp 👋👋'
     );
   });
 });
