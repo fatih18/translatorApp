@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: `https://libretranslate.com/`,
+  baseURL: `https://libretranslate.de/translate`,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 export const mapParamsToUrlSearchParams = (
