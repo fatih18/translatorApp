@@ -1,14 +1,19 @@
-import { Translation } from 'apps/translator-app/src/app/slice/translates/types';
 import React, { useState, useRef, useEffect } from 'react';
 
 import { View, Text } from 'react-native';
 
-interface ListProps extends Translation {}
+interface ListItemProps {
+  index: number;
+  item: string;
+}
 
-export const ListItem = (props: ListProps) => {
+export const ListItem = (props: ListItemProps) => {
+  console.log('props', props);
   return (
     <View style={{ height: 50 }}>
-      <Text>{props.translation} </Text>
+      <Text>
+        {props.index}. {props.item}
+      </Text>
     </View>
   );
 };
